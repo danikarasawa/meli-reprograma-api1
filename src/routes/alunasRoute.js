@@ -5,9 +5,11 @@ const controllerAlunas = require('../controllers/alunasController')
 
 router.get('/', controllerAlunas.get) 
 router.get('/:id', controllerAlunas.getById)
+router.get('/:id/books', controllerAlunas.getBooks)
 
 //function(req, res){
     //res.status(200).send(alunas)
 //})
 
 module.exports = router
+
