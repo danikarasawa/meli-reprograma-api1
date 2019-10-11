@@ -7,7 +7,7 @@ router.get('/', controllerAlunas.get)
 router.get('/sp', controllerAlunas.getSp)
 router.get('/:id', controllerAlunas.getById)
 router.get('/:id/books', controllerAlunas.getBooks)
-
+router.get('/:id/idade', controllerAlunas.getAge)
 
 //function(req, res){
     //res.status(200).send(alunas)

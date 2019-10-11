@@ -13,7 +13,7 @@ exports.getById = (req, res) => {
         res.redirect(301, "http://www.mercadolivre.com.br") //MÉTODO LEGAL PARA REDIRECIONAR ALGO OU URL 
     }
     //console.log(id)
-    res.status(200).send(alunas.find(aluna => aluna.id == id))   
+    res.status(200).send(alunas.find(aluna => aluna.id == id))
 }
 
 exports.getBooks = (req, res) => {
@@ -36,12 +36,55 @@ exports.getSp = (req, res) => {
     // })
     const nomePaulistas = alunaSp.map(aluna => aluna.nome)
     res.status(200).send(nomePaulistas) //SE COLOCAR RES.SEND() RETORNO 'OK' NA TELA :P
+
+}
+//const aluna = alunas.find(aluna => aluna.nasceuEmSp == nasceuEmSp)
+// const sampaCrew = nome.nascidaSp
+// const paulistaEncontrada = sampaCrew.filter(sampa => sampa.true == 'true')
+// const nomePaulistas = paulistaEncontrada.map(garotaSp => garotaSp.nome)
+// res.send(200).send(nomePaulistas)
+
+exports.getAge = (req, res) => {
+    const id = req.params.id // DEFINE O NÚMERO PASSADO NA ROUT /:id/idade
+    const aluna = alunas.find(aluna => aluna.id == id)
+    if (!aluna) { //!aluna > se for algo falso, diferente do que é esperado neste caso 
+        res.send("Amiga, o que está errado, não está certo")
+    }
+    const alunaAge = aluna.dateOfBirth
+    const quebraAge = alunaAge.split('/')
+    //console.log(quebraAge)
+
+    const anoDeNasc = parseInt(quebraAge[2]) //NÃO PRECISA DO PARSEINT
+    if (isNaN(anoDeNasc))
+        return false
+    //console.log(anoDeNasc)
+
+    const mesDeNasc = parseInt(quebraAge[1])
+    if (isNaN(mesDeNasc))
+        return false
+    //console.log(mesDeNasc)
+
+    const diaDeNasc = parseInt(quebraAge[0])
+    if (isNaN(diaDeNasc))
+        return false
+    //console.log(diaDeNasc)
+
+    const idadePronta = calcularIdade(anoDeNasc, mesDeNasc, diaDeNasc)
+
+    res.status(200).send({idadePronta})
+}
+
+function calcularIdade(anoDeNasc, mesDeNasc, diaDeNasc) {
+    const now = new Date()
+    const anoAtual = now.getFullYear()
+    const mesAtual = now.getMonth() + 1 //CRIARAM COM MÊS 0 E AÍ DÁ PAU. PRECISA COLOCAR +1
+    const hoje = now.getDate()
+
+    let idade = anoAtual - anoDeNasc
+
+    if (mesAtual < mesDeNasc || (mesAtual == mesDeNasc && hoje < diaDeNasc)) {
+        idade -= 1
+    }
+    return idade
     
 }
-    
-    
-    //const aluna = alunas.find(aluna => aluna.nasceuEmSp == nasceuEmSp)
-    // const sampaCrew = nome.nascidaSp
-    // const paulistaEncontrada = sampaCrew.filter(sampa => sampa.true == 'true')
-    // const nomePaulistas = paulistaEncontrada.map(garotaSp => garotaSp.nome)
-    // res.send(200).send(nomePaulistas)

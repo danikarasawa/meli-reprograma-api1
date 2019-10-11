@@ -12,8 +12,10 @@ app.all("*", function (request, response, next) {
 
 const index = require("./routes/index")
 const alunas = require("./routes/alunasRoute")
+const professoras = require("./routes/professorasRoute")
 
 app.use("/", index)
 app.use("/alunas", alunas)
+app.use("/professoras", professoras)
 
 module.exports = app //SE QUISER USAR EM OUTRO LUGAR É SÓ CHAMAR O MÓDULO
