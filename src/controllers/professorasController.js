@@ -1,4 +1,5 @@
 const professoras = require('../model/professoras.json')
+const fs = require('fs');
 
 exports.get = (req, res) => {
     console.log(req.url)
@@ -65,3 +66,21 @@ exports.getById = (req, res) => {
 //     })
 //     res.status(200).send(signoF)
 // }
+
+//MÉTODOS POST CRIADOS
+
+exports.post = (req, res) => {
+    const { id, nome, especialidade, signo, cpf } = req.body;
+    professoras.push({ id, nome, especialidade, signo, cpf });
+
+    //ESCREVER O CAMINHO ABSOLUTO (TODAS AS PASTAS) PARA ELE FUNCIONAR, SENÃO DÁ PAU
+    fs.writeFile('./src/model/professoras.json', JSON.stringify(professoras), 'utf8', function (err) {
+        if (err) {
+            return res.status(500).send({ message: err });
+        }
+        console.log("The file was saved!");
+    });
+
+    return res.status(201).send(professoras);
+    //201 STATUS DE 'ALGO FOI CRIADO COM SUCESSO'
+}

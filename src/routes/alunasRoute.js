@@ -8,10 +8,11 @@ router.get('/sp', controllerAlunas.getSp)
 router.get('/:id', controllerAlunas.getById)
 router.get('/:id/books', controllerAlunas.getBooks)
 router.get('/:id/idade', controllerAlunas.getAge)
+router.post('/', controllerAlunas.post)
+router.post(':id/books', controllerAlunas.postBooks)
 
 //function(req, res){
     //res.status(200).send(alunas)
 //})
 
 module.exports = router
-

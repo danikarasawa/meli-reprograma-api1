@@ -4,6 +4,6 @@ const controllerProfessoras = require('../controllers/professorasController')
 
 router.get('/', controllerProfessoras.get) 
 router.get('/:id', controllerProfessoras.getById)
-//router.get('/:id/signo', controllerProfessoras.getSigno)
+router.post('/', controllerProfessoras.post)
 
 module.exports = router
