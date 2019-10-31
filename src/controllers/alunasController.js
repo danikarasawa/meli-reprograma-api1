@@ -31,6 +31,18 @@ exports.getBooks = (req, res) => {
     res.status(200).send(tituloLivros)
 }
 
+//CÓDIGO DA CAROL JANDOSO
+// exports.getBooks = (req, res) => {
+//     const id = req.params.id
+//     const aluna = alunas.find(aluna => aluna.id == id)
+//     if(!aluna){
+//         res.send("Aluna não encontrada")
+//     }
+//     const livrosAluna = aluna.livros
+//     const titulosLivros = livrosAluna.map(livro => livro.titulo)
+//     res.status(200).send(titulosLivros)
+// } 
+
 exports.getSp = (req, res) => {
     //const nasceuEmSp = req.params.nasceuEmSp
     const alunaSp = alunas.filter(aluna => aluna.nasceuEmSp == "true")
@@ -111,19 +123,19 @@ exports.post = (req, res) => {
 }
 
 exports.postBooks = (req, res) => {
-    const id = req.params.id
-    const aluna = alunas.find(aluna => aluna.id == id)
+    const id = req.params.id;
+    const aluna = alunas.find(aluna => aluna.id == id);
     if (!aluna) {
-        res.send("Não encontrei essa garota")
+        res.send("Não encontrei essa garota");
     }
     const { titulo, leu } = req.body;
     alunas[aluna.id - 1].livros.push({ titulo, leu });
 
-    fs.writeFile("./src/model/alunas.json", JSON.stringify(alunas), 'utf8', function (err) {
+    fs.writeFile('./src/model/alunas.json', JSON.stringify(alunas), 'utf8', function (err) {
         if (err) {
             return res.status(500).send({ message: err });
         }
-        console.log("The file was saved!")
+        console.log("The file was saved!");
     });
     return res.status(201).send(alunas[aluna.id - 1].livros);
 }
